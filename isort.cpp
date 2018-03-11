@@ -5,11 +5,11 @@ void isort(int array[], int size)
 	{
 		int j = i - 1;
 		value = array[i];
-		while(j >= 0 && arr[j] > value)
+		while(j >= 0 && array[j] > value)
 		{
-			arr[j+1] = arr[j];
+			array[j+1] = array[j];
 			j = j-1;
 		}
-		arr[j+1] = value;
+		array[j+1] = value;
 	}
 }
