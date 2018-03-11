@@ -1,4 +1,4 @@
-void msort(int array[], int size)
+void msort(int array[], int size, int& cost)
 {
 	int middle = size / 2;
 	if(size = 1)
@@ -36,6 +36,7 @@ void msort(int array[], int size)
 			n++;
 		}
 		p++;
+		cost++;
 	}
 	
 	while (k < middle)
