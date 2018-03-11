@@ -12,9 +12,9 @@ void bsort(int array[], int size, int& cost); // bubble sort
 void isort(int array[], int size, int& cost); // insertion sort
 void ssort(int array[], int size, int& cost); // selection sort
 void msort(int array[], int size, int& cost); // mergesort
-void my_qsort(int array[], int size, int& cost, int (*choose_pivot)(int [], int, int& )); // quicksort
-int find_meridian(int array[], int size, int& cost);
-
+void my_qsort(int array[], int size, int& cost, int (*choose_pivot)(int [], int )); // quicksort
+int find_median(int array[], int size);
+int select_partition(int array[], int size);
 int main( int argc, char *argv[] )
 {
 	if ( argc < 3 ) {
@@ -57,10 +57,15 @@ int main( int argc, char *argv[] )
                 outfile << cost << " ";
 
 		cost = 0;
-                my_qsort( buffer, curr_size, cost, find_meridian );
+		my_qsort( buffer, curr_size, cost, select_partition );
+		assert( buffer[0] == 0 && buffer[curr_size-1] == curr_size-1 );
+		outfile << cost << " ";
+
+		cost = 0;
+                my_qsort( buffer, curr_size, cost, find_median );
                 assert( buffer[0] == 0 && buffer[curr_size-1] == curr_size-1 );
                 outfile << cost << " ";
-
+		
 	}
 	outfile.close();
 }
