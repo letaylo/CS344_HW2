@@ -12,9 +12,9 @@ void bsort(int array[], int size, int& cost); // bubble sort
 void isort(int array[], int size, int& cost); // insertion sort
 void ssort(int array[], int size, int& cost); // selection sort
 void msort(int array[], int size, int& cost); // mergesort
-void my_qsort(int array[], int size, int& cost, int (*choose_pivot)(int [], int )); // quicksort
-int find_median(int array[], int size);
-int select_partition(int array[], int size);
+void my_qsort(int array[], int start, int size, int& cost, int (*choose_pivot)(int [], int, int )); // quicksort
+int find_median(int array[], int start, int size);
+int select_partition(int array[], int start, int size);
 int main( int argc, char *argv[] )
 {
 	if ( argc < 3 ) {
@@ -41,30 +41,38 @@ int main( int argc, char *argv[] )
 		assert( buffer[0] == 0 && buffer[curr_size-1] == curr_size-1 );
 		outfile << cost << " ";
 		
+		shuffle( buffer, curr_size );
+		
 		cost = 0;
                 isort( buffer, curr_size, cost );
                 assert( buffer[0] == 0 && buffer[curr_size-1] == curr_size-1 );
                 outfile << cost << " ";
+
+		shuffle( buffer, curr_size );
 
 		cost = 0;
                 ssort( buffer, curr_size, cost );
                 assert( buffer[0] == 0 && buffer[curr_size-1] == curr_size-1 );
                 outfile << cost << " ";
 
-		cost = 0;
+		shuffle( buffer, curr_size );
+
+		/*cost = 0;
                 msort( buffer, curr_size, cost );
                 assert( buffer[0] == 0 && buffer[curr_size-1] == curr_size-1 );
                 outfile << cost << " ";
 
+		shuffle( buffer, curr_size );*/
+
 		cost = 0;
-		my_qsort( buffer, curr_size, cost, select_partition );
+		my_qsort( buffer, 0, curr_size, cost, select_partition );
 		assert( buffer[0] == 0 && buffer[curr_size-1] == curr_size-1 );
 		outfile << cost << " ";
 
 		cost = 0;
-                my_qsort( buffer, curr_size, cost, find_median );
+                my_qsort( buffer, 0, curr_size, cost, find_median );
                 assert( buffer[0] == 0 && buffer[curr_size-1] == curr_size-1 );
-                outfile << cost << " ";
+		outfile << cost << endl;
 		
 	}
 	outfile.close();
