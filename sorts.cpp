@@ -149,15 +149,10 @@ void msort(int array[], int size, int& cost)
 		}
 		while(n < other)
 		{
-			array[p] = temp2[k];
+			array[p] = temp2[n];
 			n++;
 			p++;
 		}	
-	}
-	cout << "Size: " << size << endl;
-	for (int i = 0; i < size; i++ )
-	{
-		cout << array[i] << endl;
 	}
 }
 
