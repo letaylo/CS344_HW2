@@ -5,6 +5,11 @@
 
 using namespace std;
 
+int find_median(int array[], int start, int size, int n);
+int partition(int array[], int left, int right, int pivotIndex);
+int pivot(int array[], int left, int right);
+int select_partition(int array[], int start, int size, int n);
+
 void shuffle(int arr[], int size)
 {
    srand(time(0));
@@ -143,59 +148,58 @@ void ssort(int array[], int size, int& cost)
 	}
 }
 
-void msort(int array[], int size, int& cost)
+void msort(int array[], int start, int size, int& cost)
 {
 
 	if(size > 1)
 	{
 		int middle = size / 2;
 		int other = size - middle;
-		int temp1[middle];
-		int temp2[other];
+                int lstart = start;
+                int rstart = start+middle;
 
-		for(int i = 0; i < middle; i++)
-		{
-			temp1[i] = array[i];
-		}
-		for(int j = 0; j < other; j++)
-		{
-			temp2[j] = array[j + middle];
-		}
-		msort(temp1, middle, cost);
-		msort(temp2, other, cost);
 		
-		int k = 0;
-		int n = 0;
-		int p = 0;
-		while(k < middle && n < other)
+		msort(array, lstart,  middle, cost);
+		msort(array, rstart, other, cost);
+		
+		int k = lstart;
+		int n = rstart;
+		int p = start;
+		int temp = array[k];
+		while(k < rstart && n < rstart+other)
 		{
-			if(temp1[k] <= temp2[n])
+			if(array[k] > array[n])
 			{
-				array[p] = temp1[k];
-				k++;
+				array[p] = array[n];
+				p++;
 			}
 			else
 			{
-				array[p] = temp2[n];
-				n++;
+				k++;
+				temp = array[k];
 			}
 			p++;
 			cost++;
 		}
 	
-		while (k < middle)
+		while (k < rstart)
 		{
-			array[p] = temp1[k];
+			array[p] = array[k];
 			k++;
 			p++;
 		}
-		while(n < other)
+		while(n < rstart+other)
 		{
-			array[p] = temp2[n];
+			array[p] = array[n];
 			n++;
 			p++;
 		}	
 	}
+	//cout << "Size: " << size << endl;
+	//for (int i = 0; i < size; i++ )
+	//{
+	//	cout << array[i] << endl;
+	//}
 }
 
 void my_qsort( int array[], int start, int size, int& cost, int (*choose_pivot) (int[] , int, int, int) )

@@ -60,7 +60,7 @@ int main( int argc, char *argv[] )
 		shuffle( buffer, curr_size );
 
 		cost = 0;
-                msort( buffer, curr_size, cost );
+                msort( buffer, 0, curr_size, cost );
                 assert( buffer[0] == 0 && buffer[curr_size-1] == curr_size-1 );
                 outfile << cost << " ";
 
